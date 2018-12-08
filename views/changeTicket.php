@@ -1,0 +1,40 @@
+<div class="col-">
+    <div class="alert alert-success btn-block" role="alert">
+        <h4 class="text-uppercase text-center">Изменение заявки</h4>
+    </div>
+</div>
+
+<div class="col-">
+	<div class="alert alert-dark btn-block">
+		<form method="GET" action="/app">
+            <input type="hidden" name="mexcod" value="<?= $_SESSION['mexcod'] ?>">
+            <input type="hidden" name="action" value="changeTicketWithBase">
+            <input type="hidden" name="idTicket" value="<?= $ticket[0]['idz'] ?>">
+            
+            <div class="form-group">
+				<label for="time">Затраченное время в минутах</label>
+				<input type="number" class="form-control" name="time" id="time" value="<?= $ticket[0]['time'] ?>" placeholder="time">
+			</div>
+			<div class="form-group">
+                <label for="comment">Комментарий к заявке</label>
+                <textarea class="form-control" name="comment" id="comment" placeholder="Комментарий" rows="3"><?= $ticket[0]['comment'] ?></textarea>
+			</div>
+            <input type="hidden" name="closeTicket" value="<?= $closeTicket ?>">
+            
+			<?php if ($closeTicket === 1): // Закрыть заявку или сохранить изменения ?>
+                
+                <button type="submit" class="btn btn-primary btn-block">Закрыть заявку</button>
+			<?php else: ?>
+                
+                <button type="submit" class="btn btn-primary btn-block">Сохранить изменения</button>
+			<?php endif; ?>
+   
+		</form>
+	</div>
+</div>
+
+<?php //
+//echo var_dump($ticket);
+//echo $time . "\n";
+//echo $comment . "\n";
+?>

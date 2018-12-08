@@ -1,0 +1,18 @@
+{
+    "name": "okaCTO/Oka_CTO",
+    "description": "CTO OKA-Elektron",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "okaCTO\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "iOne",
+            "email": "admin1@oe22.ru"
+        }
+    ],
+    "require": {
+    }
+}
