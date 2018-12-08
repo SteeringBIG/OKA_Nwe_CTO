@@ -1,5 +1,5 @@
 <div class="col-">
-    <div class="alert alert-success btn-block" role="alert">
+    <div class="alert alert-success btn-block" data-toggle="modal" data-target="#modalTitle" role="alert">
         <h4 class="text-uppercase text-center">Изменение заявки</h4>
     </div>
 </div>
@@ -13,27 +13,30 @@
             
             <div class="form-group">
 				<label for="time">Затраченное время в минутах</label>
-				<input type="number" class="form-control" name="time" id="time" value="<?= $ticket[0]['time'] ?>" placeholder="time">
+				<input type="number" class="form-control" name="time" id="time" value="<?= $ticket[0]['time'] ?>" placeholder="time" step="5">
 			</div>
 			<div class="form-group">
                 <label for="comment">Комментарий к заявке</label>
                 <textarea class="form-control" name="comment" id="comment" placeholder="Комментарий" rows="3"><?= $ticket[0]['comment'] ?></textarea>
 			</div>
+
             <input type="hidden" name="closeTicket" value="<?= $closeTicket ?>">
-            
-			<?php if ($closeTicket === 1): // Закрыть заявку или сохранить изменения ?>
-                
-                <button type="submit" class="btn btn-primary btn-block">Закрыть заявку</button>
-			<?php else: ?>
-                
-                <button type="submit" class="btn btn-primary btn-block">Сохранить изменения</button>
-			<?php endif; ?>
-   
+
+            <div class="form-group">
+                <?php if ($closeTicket === 1): // Закрыть заявку или сохранить изменения ?>
+                    <button type="submit" class="btn btn-primary btn-block">Закрыть заявку</button>
+                <?php else: ?>
+                    <button type="submit" class="btn btn-primary btn-block">Сохранить изменения</button>
+                <?php endif; ?>
+            </div>
 		</form>
 	</div>
 </div>
 
-<?php //
+<?php
+require 'modalTitle.php'; //Модальное окно с основным меню
+
+//
 //echo var_dump($ticket);
 //echo $time . "\n";
 //echo $comment . "\n";

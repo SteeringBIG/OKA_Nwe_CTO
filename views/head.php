@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="views/css/main.css"><link>
     <link rel="stylesheet" href="views/css/bootstrap.css"><link>
-    
+
+
     <!-- Latest compiled and minified JavaScript -->
     <script src="views/js/jquery-3.3.1.min.js"></script>
     <script src="views/js/bootstrap.min.js"></script>
@@ -16,5 +17,5 @@
 <body>
 <div class="container-fluid">
 <!--<div class=" col-">-->
-    <br>
+<!--    <br>-->
 <!--</div>-->

@@ -15,68 +15,98 @@ if ('/' === $uri) {
 	$main->showHome();
 	
 } elseif ('/app' === $uri) {
-	if (empty($_GET)){
-		$main->showHome();
-		return;
-	} else {
-		$db = new dataBase();
-		$mexcod = $_GET['mexcod']; // код механника
-		$_SESSION['mexcod'] = $mexcod;
-		$idTicket = $_GET['idTicket']; // id заявки в базе на сайте
-		$action = $_GET['action'];
+    if (empty($_GET['mexcod'])) {
+        $main->showHome();
+        return;
+    } else {
+        $db = new dataBase();
+        $mexcod = $_GET['mexcod']; // код механника
+        $_SESSION['mexcod'] = $mexcod;
+    }
+
+    if (!empty($_GET['action']))
+    {
+        $action = $_GET['action']; // Команда для выполнения
+
+        //Показать историю заявок в диапазоне дат
+        if ($action === 'showHistoryTicket')
+        {
+            if (empty($_GET['dateTo']))
+            {
+                $dateTo = date('ymd');
+            } else {
+                $dateTo = date('ymd', $main->getData($_GET['dateTo']));
+            };
+
+            if (empty($_GET['dateFrom']))
+            {
+                $dateFrom = date('ym01');
+            } else {
+                $dateFrom = date('ymd', $main->getData($_GET['dateFrom']));
+            };
+
+            $sql = 'SELECT * FROM zayavki 
+                    WHERE mexcod=' . $mexcod . ' 
+                        AND vipolnil=1 
+                        AND datasort<=' . $dateTo . ' 
+                        AND datasort>=' . $dateFrom . ' 
+                    ORDER BY idz DESC';
+
+            //echo $sql;
+            $main->showHistory($db->query($sql));
+            return;
+        }
+
+        if (!empty($_GET['idTicket']))
+        {
+            $idTicket = $_GET['idTicket']; // id заявки в базе на сайте
+
+            // завершение заявки без указания времени и комментария
+            if (!empty($idTicket) AND ($action === 'closeTicket')) {
+                $sql = 'UPDATE zayavki SET vipolnil=1, vipolnilpc=0, prinal=1, prinalpc=1 WHERE idz=' . $idTicket;
+                $db->query($sql);
+                Header( 'Location: /app?mexcod=' . $mexcod );
+            }
+
+            // Сохраняем изменения в заявке или закрываем с сохранением
+            if (!empty($idTicket) AND ($action === 'changeTicketWithBase')) {
+                if ($_GET['closeTicket'] === '1') {
+                    $sql = 'UPDATE zayavki
+                                SET vipolnil=1, vipolnilpc=0, prinal=1, prinalpc=1, time=' . $_GET['time'] . ', comment=\'' . $_GET['comment'] . '\'
+                                WHERE idz=' . $idTicket;
+                } else {
+                    $sql = 'UPDATE zayavki
+                                SET time=' . $_GET['time'] . ', comment=\'' . $_GET['comment'] . '\'
+                                WHERE idz=' . $idTicket;
+                }
+                $db->query($sql);
+                Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] );
+            }
+
+            // принять заявку к исполнению
+            if (!empty($idTicket) AND (($action === 'takeTicket') OR ($action === 'returnTicketToWork'))) {
+                $sql = 'UPDATE zayavki SET vipolnil=0, vipolnilpc=0, prinal=1, prinalpc=0 WHERE idz=' . $idTicket;
+                $db->query($sql);
+                Header( 'Location: /app?mexcod=' . $mexcod );
+            }
+
+            // Страница изменения заявки. Написать комментарий и время. БЕЗ закрытия
+            if (!empty($idTicket) AND ($action === 'changeTicketNoClose')) {
+                $sql = 'SELECT * FROM zayavki WHERE idz=' . $idTicket . ' ORDER BY datasort, idz';
+                $main->showChangeTicket($db->query($sql), 0);
+                return;
+            }
+
+            // Страница завершения заявки С указанием времени и комментария
+            if (!empty($idTicket) AND ($action === 'changeTicketAndClose')) {
+                $sql = 'SELECT * FROM zayavki WHERE idz=' . $idTicket . ' ORDER BY datasort, idz';
+                $main->showChangeTicket($db->query($sql), 1);
+                return;
+            }
+        }
 	}
-	
-	// завершение заявки без указания времени и комментария
-	if (!empty($idTicket) AND !empty($mexcod) AND ($action === 'closeTicket'))
-	{
-		$sql = 'UPDATE zayavki SET vipolnil=1, vipolnilpc=0, prinal=1, prinalpc=1 WHERE idz=' . $idTicket;
-		$db->query($sql);
-		//Header( 'Location: /app?mexcod=' . $mexcod );
-	}
-	
-	// Сохраняем изменения в заявке или закрываем с сохранением
-	if (!empty($idTicket) AND ($action === 'changeTicketWithBase'))
-	{
-		if ($_GET['closeTicket'] === '1')
-		{
-			$sql = 'UPDATE zayavki
-					SET vipolnil=1, vipolnilpc=0, prinal=1, prinalpc=1, time=' . $_GET['time'] . ', comment=\'' . $_GET['comment'] . '\'
-					WHERE idz=' . $idTicket;
-		} else {
-			$sql = 'UPDATE zayavki
-					SET time=' . $_GET['time'] . ', comment=\''. $_GET['comment'] .'\'
-					WHERE idz=' . $idTicket;
-		}
-		
-		$db->query($sql);
-		//Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] );
-	}
-	
-	// принять заявку к исполнению
-	if (!empty($idTicket) AND !empty($mexcod) AND ($action === 'takeTicket'))
-	{
-		$sql = 'UPDATE zayavki SET vipolnil=0, vipolnilpc=0, prinal=1, prinalpc=0 WHERE idz=' . $idTicket;
-		$db->query($sql);
-		//Header( 'Location: /app?mexcod=' . $mexcod );
-	}
-	
-	// Страница изменения заявки. Написать комментарий и время. БЕЗ закрытия
-	if (!empty($idTicket) AND !empty($mexcod) AND ($action === 'changeTicketNoClose'))
-	{
-		$sql = 'SELECT * FROM zayavki WHERE idz=' . $idTicket . ' ORDER BY datasort, idz';
-		$main->showChangeTicket($db->query($sql), 0);
-		return;
-	}
-	
-	// Страница завершения заявки С указанием времени и комментария
-	if (!empty($idTicket) AND !empty($mexcod) AND ($action === 'changeTicketAndClose'))
-	{
-		$sql = 'SELECT * FROM zayavki WHERE idz=' . $idTicket . ' ORDER BY datasort, idz';
-		$main->showChangeTicket($db->query($sql), 1);
-		return;
-	}
-	
-	//Показать все открытые заявки механника
+
+    //Показать все открытые заявки механника
 	if (!empty($mexcod))
 	{
 		$sql = 'SELECT * FROM zayavki WHERE mexcod=' . $mexcod . ' AND vipolnil=0  ORDER BY datasort, idz';

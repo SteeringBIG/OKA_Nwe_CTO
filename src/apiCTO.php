@@ -68,7 +68,24 @@ class apiCTO
             case 'setChangedTickets':
                 //$this->commandProcessing($value);
                 break;
+            case 'setNewTicket':
+                $this->setNewTicket();
+                break;
         }
+    }
+
+    /*
+     * Запись нового тикета в базу из 1С
+     */
+    private function setNewTicket(){
+        //$db = new dataBase();
+        //$sql = 'SELECT * FROM zayavki WHERE ((vipolnil=1 AND vipolnilpc=0) OR (prinal=1 AND prinalpc=0))';
+        //$arrTickets = $db->query($sql);
+        echo '=|';
+        //echo $arrTickets;
+        echo '|=';
+        //echo $strTickets = json_encode($arrTickets);
+        //echo var_dump($strTickets);
     }
 
     /*

@@ -11,8 +11,10 @@
                 <?php if ($status == '1'): // Статус заявки ?>
                     <a href="/app?mexcod=<?= $mexCod ?>&action=closeTicket&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Завершить</a>
                     <a href="/app?mexcod=<?= $mexCod ?>&action=changeTicketAndClose&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Завершить с комментарием</a>
-                <?php else: ?>
-                    <a href="/app?mexcod=<?= $mexCod ?>&action=takeTicket&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Принять</a>
+                <?php elseif ($status == '2'): // Вернуть в работу ?>
+                    <a href="/app?mexcod=<?= $mexCod ?>&action=returnTicketToWork&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Вернуть в работу</a>
+                <?php else: // Подтвердить ?>
+                    <a href="/app?mexcod=<?= $mexCod ?>&action=takeTicket&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Принять в работу</a>
                 <?php endif; ?>
                     <a href="/app?mexcod=<?= $mexCod ?>&action=changeTicketNoClose&idTicket=<?= $idTicket ?>" class="btn btn-primary btn-block">Написать комментарий</a>
 			</div>

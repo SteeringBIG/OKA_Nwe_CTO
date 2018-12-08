@@ -2,8 +2,8 @@
 
     <div class="col-">
         <div class="alert alert-success btn-block text-center">
-            <h3>ЦТО "Ока-Электрон"</h3>
-            <h4>тел.: +7(3852) 557-000</h4>
+            <h6>ЦТО "Ока-Электрон"</h6>
+            <h7>тел.: +7(3852) 557-000</h7>
         </div>
     </div>
 
