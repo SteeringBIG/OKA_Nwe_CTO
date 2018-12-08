@@ -2,7 +2,7 @@
 
 Таблица "kkm_info'
 ---------------------
-~~~
+```SQL
 create table kkm_info
 (
   id                int                  not null
@@ -24,12 +24,11 @@ create table kkm_info
     unique (kkm_number)
 )
   comment 'Информация по ккм';
-
-~~~
+```
 
 Таблица "zayavki'
 ---------------------
-~~~
+```SQL
 create table zayavki
 (
   idz        int auto_increment
@@ -50,4 +49,4 @@ create table zayavki
   datasort   varchar(8)  default ''      not null
 )
 comment 'Заявки клиентов в СЦ';
-~~~
+```
