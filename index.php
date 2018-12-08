@@ -6,6 +6,7 @@ use okaCTO\main;
 use okaCTO\dataBase;
 use okaCTO\apiCTO;
 
+date_default_timezone_set('Asia/Barnaul');
 $main = new main();
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -56,6 +57,44 @@ if ('/' === $uri) {
             $main->showHistory($db->query($sql));
             return;
         }
+	
+        //Заполнение и просмотр информации по ККМ
+	    if ($action === 'infoKKM')
+	    {
+	        $main->showInfoKKM();
+		    return;
+	    }
+	
+	    //Запись информации по ККМ в базу
+	    if ($action === 'setInfoKKM')
+	    {
+		    //echo var_dump($main->arr_kkm_sno);
+		    
+//		    $a1 = array("1","2","3");
+//		    $st_arr = implode(",", $_GET['kkm_sno']); // Строка из массива с разделителем ","
+//		    echo  $st_arr . "\n";
+//
+//		    $pieces = explode(",", $st_arr); // Из строки с разделителем "," в массив
+//		    echo var_dump($pieces);
+//
+		    foreach ($_GET['kkm_sno'] as $value)
+		    {
+			    $main->arr_kkm_sno[$value][1] = 'selected';
+			    //echo var_dump($main->arr_kkm_sno[$value]) . "\n";
+		    }
+		    
+		    foreach ($_GET['groups_product'] as $value)
+		    {
+			    $main->arr_groups_product[$value][1] = 'selected';
+			    //echo var_dump($main->groups_product[$value]) . "\n";
+		    }
+		    
+//		    echo var_dump($_GET) . "\n\n";
+//		    echo var_dump($main->arr_kkm_sno);
+		    
+		    $main->showInfoKKM($_GET);
+		    return;
+	    }
 
         if (!empty($_GET['idTicket']))
         {
@@ -137,63 +176,6 @@ if ('/' === $uri) {
 	header('HTTP/1.1 404 Not Found');
 	$main->show404();
 }
-//$db = new dataBase();
-//
-//$sql = "SELECT * FROM zayavki WHERE mexcod=60 AND vipolnil=0";
-//
-//$z = $db->query($sql);
-//echo var_dump($z);
 
-//
-//$main = new main();
-//$auth = new auth();
-//
-//$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-//if ('/' === $uri) {
-//	$main->show_menu();
-//	echo '<h1>Нужно выбрать пункт меню</h1>';
-//
-//} elseif ('/home' === $uri) {
-//	$main->show_menu();
-//	$main->show_home();
-//
-//} elseif('/login' === $uri) {
-//
-//	if (empty($_SESSION['username'])) {
-//		$userName = $_POST['username'];
-//		if (!empty($userName)) {
-//			if (!is_null($auth->checkUserName($userName))) {
-//				if (!is_null($auth->checkUserPass($userName, $_POST['pass']))) {
-//					$auth->setUserInfo($userName);
-//				}else {
-//					$errorAuth = 'Пароль не соответствует логину';
-//				}
-//			} else {
-//				$errorAuth = 'Пользователь с именем ' . $userName . ' не зарегистрирован в системе';
-//				$userName = null;
-//			}
-//		}
-//	}
-//	$main->show_menu();
-//	$main->show_login($userName, $errorAuth);
-//
-//} elseif('/balance' === $uri) {
-//	if (empty($_SESSION['username'])) {
-//		$auth->exitSession();
-//	} else {
-//		$main->show_menu();
-//		$main->show_balance();
-//	}
-//
-//} elseif('/exit' === $uri) {
-//    $auth->exitSession();
-//
-//} else {
-//	header('HTTP/1.1 404 Not Found');
-//	$main->show_menu();
-//	echo '<h1 style="color: blue">404 Page Not Found.</h1> ';
-//
-//}
-//
 //// Серверная информация по рабоботе страницы
 //$main->show_info($_POST['showServerInfo']);

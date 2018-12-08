@@ -25,6 +25,7 @@
                     </div>
                 </form>
                 <a href="/app?mexcod=<?= $_SESSION['mexcod'] ?>" class="btn btn-primary btn-block">Текущие заявки</a>
+                <a href="/app?mexcod=<?= $_SESSION['mexcod'] ?>&action=infoKKM" class="btn btn-primary btn-block">Информация по ККМ</a>
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Вернуться</button>
