@@ -69,22 +69,32 @@ if ('/' === $uri) {
 	    if ($action === 'getInfoKKM')
 	    {
 		    $sql = 'SELECT * FROM kkm_info WHERE kkm_number=' . $_GET['kkm_number'];
-		    $info = $db->query($sql)[0];
+		    $info = $db->query($sql);
+		    if (!empty($info))
+            {
+                $info = array_merge($main->arr_info_kkm, $info[0]);
+            }else{
+                $info = $main->arr_info_kkm;
+            }
+
 		    $info['action'] = 'getInfoKKM';
 		    $info['kkm_number'] = $_GET['kkm_number'];
-		    
-		    foreach (explode("#", $info['kkm_sno']) as $value)
-		    {
-			    $main->arr_kkm_sno[$value][1] = 'selected';
-			    //echo var_dump($main->arr_kkm_sno[$value]) . "\n";
-		    }
-		
-		    foreach (explode("#", $info['groups_product']) as $value)
-		    {
-			    $main->arr_groups_product[$value][1] = 'selected';
-			    //echo var_dump($main->groups_product[$value]) . "\n";
-		    }
-		    
+
+            if ((!empty($info['kkm_sno'])) AND (!empty($info['groups_product'])))
+            {
+                foreach (explode("#", $info['kkm_sno']) as $value)
+                {
+                    $main->arr_kkm_sno[$value][1] = 'selected';
+                    //echo var_dump($main->arr_kkm_sno[$value]) . "\n";
+                }
+
+                foreach (explode("#", $info['groups_product']) as $value)
+                {
+                    $main->arr_groups_product[$value][1] = 'selected';
+                    //echo var_dump($main->groups_product[$value]) . "\n";
+                }
+            }
+
 		    $main->showInfoKKM($info);
 		    return;
 	    }
@@ -92,32 +102,39 @@ if ('/' === $uri) {
 	    //Запись информации по ККМ в базу
 	    if ($action === 'setInfoKKM')
 	    {
-		    $kkm_sno = implode("#", $_GET['kkm_sno']);
-		    $groups_product = implode("#", $_GET['groups_product']);
-	    	                             //   1          2         3      4       5         6          7         8            8         10          11             12                  13
-		    
-		    $sql = "INSERT INTO kkm_info (date_upd, mex_code, name_org, inn, kkm_model, kkm_number, kkm_sno, kkm_firmware, fn_size, fn_protocol, sub_firmware, auto_upd_firmware, groups_product)
+            if ((!empty($_GET['kkm_sno'])) AND (!empty($_GET['groups_product']))) {
+                $kkm_sno = implode("#", $_GET['kkm_sno']);
+                $groups_product = implode("#", $_GET['groups_product']);
+            } else {
+                $kkm_sno = '';
+                $groups_product = '';
+            }
+
+            $auto_upd_firmware = (empty($_GET['auto_upd_firmware']) ? '0' : '1');
+                                        //   1          2         3      4       5         6          7         8            8         10          11             12                  13
+            $sql = "INSERT INTO kkm_info (`date_upd`, `mex_code`, `name_org`, `inn`, `kkm_model`, `kkm_number`, 
+                                          `kkm_sno`, `kkm_firmware`, `fn_size`, `fn_protocol`, `sub_firmware`, `auto_upd_firmware`, `groups_product`)
 					VALUES (
-						{$_GET['date_upd']},
-						{$_SESSION['mexcod']},
-						{$_GET['name_org']},
-						{$_GET['inn']},
-						{$_GET['kkm_model']},
-						{$_GET['kkm_number']},
-						{$kkm_sno},
-						{$_GET['kkm_firmware']},
-						{$_GET['fn_size']},
-						{$_GET['fn_protocol']},
-						{$_GET['sub_firmware']},
-						{$_GET['auto_upd_firmware']},
-						{$groups_product}
+						'{$_GET['date_upd']}',
+						'{$_SESSION['mexcod']}',
+						'{$_GET['name_org']}',
+						'{$_GET['inn']}',
+						'{$_GET['kkm_model']}',
+						'{$_GET['kkm_number']}',
+						'{$kkm_sno}',
+						'{$_GET['kkm_firmware']}',
+						'{$_GET['fn_size']}',
+						'{$_GET['fn_protocol']}',
+						'{$_GET['sub_firmware']}',
+						'{$auto_upd_firmware}'
+						'{$groups_product}'
 						)";
 		    
-//		    echo var_dump($sql) . "\n";
+		    echo var_dump($sql) . "\n";
 //		    echo var_dump($_GET) . "\n";
 		    //$main->showInfoKKM($_GET);
 		    //return;
-		    Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] . '&action=startInfoKKM' );
+		    //Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] . '&action=startInfoKKM' );
 	    }
 
         if (!empty($_GET['idTicket']))
