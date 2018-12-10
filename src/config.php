@@ -1,11 +1,13 @@
 <?php
-/**
- * Project: OKA_Nwe_CTO.
- * Date: 27.11.2018 13:35
- * mysql89.1gb.ru','gb_cto_ok','a5ba8badahjk'
- */
+return [ //Тестовая база ЦТО
+    'host' => 'mysql99.1gb.ru',
+    'db_name' => 'gb_cto_new',
+    'username' => 'gb_cto_new',
+    'password' => 'abez6a3eemz2',
+    'charset' => 'utf8'
+];
 
-//return [
+//return [ //Рабочая база ЦТО
 //	'host' => 'mysql89.1gb.ru',
 //	'db_name' => 'gb_cto_ok',
 //	'username' => 'gb_cto_ok',
@@ -13,10 +15,10 @@
 //	'charset' => 'utf8'
 //];
 
-return [
-	'host' => 'localhost',
-	'db_name' => 'gb_cto_ok',
-	'username' => 'root',
-	'password' => '',
-	'charset' => 'utf8'
-];
+//return [
+//	'host' => 'localhost',
+//	'db_name' => 'gb_cto_ok',
+//	'username' => 'root',
+//	'password' => '',
+//	'charset' => 'utf8'
+//];
