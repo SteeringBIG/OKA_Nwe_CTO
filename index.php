@@ -112,7 +112,7 @@ if ('/' === $uri) {
 
             $auto_upd_firmware = (empty($_GET['auto_upd_firmware']) ? '0' : '1');
                                         //   1          2         3      4       5         6          7         8            8         10          11             12                  13
-            $sql = "INSERT INTO kkm_info (`date_upd`, `mex_code`, `name_org`, `inn`, `kkm_model`, `kkm_number`, 
+            $sql = "INSERT INTO `kkm_info` (`date_upd`, `mex_code`, `name_org`, `inn`, `kkm_model`, `kkm_number`, 
                                           `kkm_sno`, `kkm_firmware`, `fn_size`, `fn_protocol`, `sub_firmware`, `auto_upd_firmware`, `groups_product`)
 					VALUES (
 						'" . $_GET['date_upd'] . "',
@@ -131,7 +131,7 @@ if ('/' === $uri) {
 						)";
 		    
 		    echo var_dump($sql) . "\n";
-//		    echo var_dump($_GET) . "\n";
+		    echo var_dump($_GET) . "\n";
 		    //$main->showInfoKKM($_GET);
 		    //return;
 		    //Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] . '&action=startInfoKKM' );
