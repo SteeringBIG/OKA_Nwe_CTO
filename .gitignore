@@ -5,7 +5,7 @@
 Thumbs.db
 
 # Файл с конфигурацией базы данных
-src/config.php
+/src/config.php
 
 # composer vendor dir
 /vendor
