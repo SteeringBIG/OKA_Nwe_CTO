@@ -115,19 +115,19 @@ if ('/' === $uri) {
             $sql = "INSERT INTO kkm_info (`date_upd`, `mex_code`, `name_org`, `inn`, `kkm_model`, `kkm_number`, 
                                           `kkm_sno`, `kkm_firmware`, `fn_size`, `fn_protocol`, `sub_firmware`, `auto_upd_firmware`, `groups_product`)
 					VALUES (
-						'{$_GET['date_upd']}',
-						'{$_SESSION['mexcod']}',
-						'{$_GET['name_org']}',
-						'{$_GET['inn']}',
-						'{$_GET['kkm_model']}',
-						'{$_GET['kkm_number']}',
-						'{$kkm_sno}',
-						'{$_GET['kkm_firmware']}',
-						'{$_GET['fn_size']}',
-						'{$_GET['fn_protocol']}',
-						'{$_GET['sub_firmware']}',
-						'{$auto_upd_firmware}'
-						'{$groups_product}'
+						'" . $_GET['date_upd'] . "',
+						'" . $_SESSION['mexcod'] . "',
+						'" . $_GET['name_org'] . "',
+						'" . $_GET['inn'] . "',
+						'" . $_GET['kkm_model'] . "',
+						'" . $_GET['kkm_number'] . "',
+						'" . $kkm_sno . "',
+						'" . $_GET['kkm_firmware'] . "',
+						'" . $_GET['fn_size'] . "',
+						'" . $_GET['fn_protocol'] . "',
+						'" . $_GET['sub_firmware'] . "',
+						'" . $auto_upd_firmware . "',
+						'" . $groups_product . "'
 						)";
 		    
 		    echo var_dump($sql) . "\n";
