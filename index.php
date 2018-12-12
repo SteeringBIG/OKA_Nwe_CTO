@@ -111,27 +111,30 @@ if ('/' === $uri) {
             }
 
             $auto_upd_firmware = (empty($_GET['auto_upd_firmware']) ? '0' : '1');
-                                        //   1          2         3      4       5         6          7         8            8         10          11             12                  13
-            $sql = "INSERT INTO `kkm_info` (`date_upd`, `mex_code`, `name_org`, `inn`, `kkm_model`, `kkm_number`, 
-                                          `kkm_sno`, `kkm_firmware`, `fn_size`, `fn_protocol`, `sub_firmware`, `auto_upd_firmware`, `groups_product`)
-					VALUES (
-						'" . $_GET['date_upd'] . "',
-						'" . $_SESSION['mexcod'] . "',
-						'" . $_GET['name_org'] . "',
-						'" . $_GET['inn'] . "',
-						'" . $_GET['kkm_model'] . "',
-						'" . $_GET['kkm_number'] . "',
-						'" . $kkm_sno . "',
-						'" . $_GET['kkm_firmware'] . "',
-						'" . $_GET['fn_size'] . "',
-						'" . $_GET['fn_protocol'] . "',
-						'" . $_GET['sub_firmware'] . "',
-						'" . $auto_upd_firmware . "',
-						'" . $groups_product . "'
-						)";
-		    
-		    echo var_dump($sql) . "\n";
-		    echo var_dump($_GET) . "\n";
+
+
+            $db->arrInfoKKM = [
+                'date_upd' => $_GET['date_upd'],
+                'mexcod' => $_SESSION['mexcod'],
+                'name_org' => $_GET['name_org'],
+                'inn' => $_GET['inn'],
+                'kkm_model' => $_GET['kkm_model'],
+                'kkm_number' => $_GET['kkm_number'],
+                'kkm_sno' => $kkm_sno,
+                'kkm_firmware' => $_GET['kkm_firmware'],
+                'fn_size' => $_GET['fn_size'],
+                'fn_protocol' => $_GET['fn_protocol'],
+                'sub_firmware' => $_GET['sub_firmware'],
+                'auto_upd_firmware' => $auto_upd_firmware,
+                'groups_product' => $groups_product,
+            ];
+
+            //echo var_dump($db->arrInfoKKM) . "\n";
+
+            $result = $db->insertInfoKKM();
+
+            echo var_dump($result) . "\n";
+		    //echo var_dump($_GET) . "\n";
 		    //$main->showInfoKKM($_GET);
 		    //return;
 		    //Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] . '&action=startInfoKKM' );
