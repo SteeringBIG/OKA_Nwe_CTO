@@ -112,7 +112,6 @@ if ('/' === $uri) {
 
             $auto_upd_firmware = (empty($_GET['auto_upd_firmware']) ? '0' : '1');
 
-
             $db->arrInfoKKM = [
                 'date_upd' => $_GET['date_upd'],
                 'mexcod' => $_SESSION['mexcod'],
@@ -130,12 +129,8 @@ if ('/' === $uri) {
             ];
 
             //echo var_dump($db->arrInfoKKM) . "\n";
+            $result = $db->insertInfoKKM($db->arrInfoKKM);
 
-            $result = $db->insertInfoKKM();
-
-            echo var_dump($result) . "\n";
-		    //echo var_dump($_GET) . "\n";
-		    //$main->showInfoKKM($_GET);
 		    //return;
 		    //Header( 'Location: /app?mexcod=' . $_SESSION['mexcod'] . '&action=startInfoKKM' );
 	    }
