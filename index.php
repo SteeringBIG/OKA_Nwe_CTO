@@ -154,7 +154,7 @@ if ('/' === $uri) {
                                 WHERE idz=' . $idTicket;
                 } else {
                     $sql = 'UPDATE zayavki
-                                SET time=' . $_GET['time'] . ', comment=\'' . $_GET['comment'] . '\'
+                                SET prinal=1, prinalpc=0, time=' . $_GET['time'] . ', comment=\'' . $_GET['comment'] . '\'
                                 WHERE idz=' . $idTicket;
                 }
                 $db->query($sql);
