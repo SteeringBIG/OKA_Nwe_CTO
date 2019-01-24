@@ -10,6 +10,6 @@
     
 <!-- закрывается <div class="container">-->
 </div>
-
+<!--<script async src="02a3c7fb3f/test2.js"></script>-->
 </body>
 </html>
