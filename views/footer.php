@@ -1,5 +1,4 @@
 
-
     <div class="col-">
         <div class="alert alert-success btn-block text-center">
             <h6>ЦТО "Ока-Электрон"</h6>
@@ -7,9 +6,7 @@
         </div>
     </div>
 
-    
 <!-- закрывается <div class="container">-->
 </div>
-
 </body>
 </html>
