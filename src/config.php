@@ -1,9 +1,9 @@
 <?php
 
 return [
-'host' => 'mysql99.1gb.ru',
-'db_name' => 'gb_cto_new',
-'username' => 'gb_cto_new',
-'password' => 'abez6a3eemz2',
+'host' => 'localhost',
+'db_name' => 'cto_oka',
+'username' => 'root',
+'password' => '',
 'charset' => 'utf8'
 ];

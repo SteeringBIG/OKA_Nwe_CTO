@@ -6,24 +6,45 @@ use okaCTO\main;
 use okaCTO\dataBase;
 use okaCTO\apiCTO;
 
+//echo var_dump($_SERVER) . PHP_EOL;
+
 date_default_timezone_set('Asia/Barnaul');
 $main = new main();
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-//echo $uri;
+//echo $uri . PHP_EOL;
+//echo var_dump($_GET) . PHP_EOL;
+
 if ('/' === $uri) {
 
 	$main->showHome();
 	
 } elseif ('/app' === $uri) {
+	//echo $_GET['mexcod'] . PHP_EOL;
+	
     if (empty($_GET['mexcod'])) {
         $main->showHome();
-        return;
+		return;
     } else {
-        $db = new dataBase();
+
+        try{
+            //echo 'Подключаем базу данных' . PHP_EOL;
+            $db = new dataBase();
+            //echo 'Подключили базу данных' . PHP_EOL;
+        }
+        catch(PDOException $e)
+        {
+            printme(' подключиться к MySQL не получилось', 1);
+            printme(' проверьте настройки в коде скрипта (поля класса DBO этого скрипта), а также убедитесь что PHP PDO включено | текст ошибки:');
+            printme("Error: ".$e->getMessage());
+            //  exit();
+        }
+
         $mexcod = $_GET['mexcod']; // код механника
         $_SESSION['mexcod'] = $mexcod;
     }
+
+    //echo 'Перед action ' . empty($_GET['action']) . PHP_EOL;
 
     if (!empty($_GET['action']))
     {
@@ -184,9 +205,11 @@ if ('/' === $uri) {
         }
 	}
 
+    //echo 'Перед заявками ' . $mexcod . PHP_EOL;
     //Показать все открытые заявки механника
 	if (!empty($mexcod))
 	{
+	    //echo 'Запрос заявок' . PHP_EOL;
 		$sql = 'SELECT * FROM zayavki WHERE mexcod=' . $mexcod . ' AND vipolnil=0  ORDER BY datasort, idz';
 		$main->showTickets($db->query($sql));
 	};
@@ -217,4 +240,5 @@ if ('/' === $uri) {
 }
 
 //// Серверная информация по рабоботе страницы
+//echo var_dump($_SERVER);
 //$main->show_info($_POST['showServerInfo']);

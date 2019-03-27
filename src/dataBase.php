@@ -8,6 +8,7 @@ class dataBase
 	
 	public function __construct()
 	{
+	    //echo 'Перед коннектом';
 		$this->connect();
 	}
 	
@@ -17,6 +18,7 @@ class dataBase
 		
 		$connectString = 'mysql:dbname=' . $config['db_name'] . ';host=' . $config['host'] . ';charset=' . $config['charset'];
 		$this->link = new \PDO($connectString, $config['username'], $config['password']);
+
 		return $this;
 	}
 

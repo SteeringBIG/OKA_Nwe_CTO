@@ -21,6 +21,7 @@
 	    $mexCod = $tic['mexcod']; // код механника. Нужен для модального окна
         $idTicket = $tic['idz']; // id заявки в базе на сайте
         $status = $tic['prinal'];
+        $problema = $tic['problema'];
 
         if ($status == '1'){ // Статус заявки
 	        echo '<span class="badge badge-pill badge-success btn-block" data-toggle="modal" data-target="#modalTicket-'. $idTicket .'">
@@ -33,7 +34,7 @@
         }
 
         echo '' . str_ireplace("#", "<br><b>Клиент: </b>",
-                                $tic['problema']). "<br><b>" .$tic['time']. " мин. ". "ком: </b>". $tic['comment'] . '';
+                    $problema). "<br><b>" .$tic['time']. " мин. ". "ком: </b>". $tic['comment'] . '';
 
         //echo var_dump($tickets[$n]);
 	
