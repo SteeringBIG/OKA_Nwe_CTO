@@ -191,7 +191,14 @@ class main
 	{
 		require 'views/footer.php';
 	}
-	
+
+    public function showInfoContract()
+    {
+        $this->showHead();
+        require 'views/contract.php';
+        $this->showFooter();
+    }
+
 	public function showHome()
 	{
 		$this->showHead();

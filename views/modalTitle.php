@@ -8,24 +8,40 @@
 				</button>
 			</div>
 			<div class="modal-body">
+<!--                <form method="GET" action="/app">-->
+<!--                    <input type="hidden" name="mexcod" value="--><?//= $_SESSION['mexcod'] ?><!--">-->
+<!--                    <input type="hidden" name="action" value="showHistoryTicket">-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label for="time">Начиная с:</label>-->
+<!--                        <input type="date" class="form-control" name="dateFrom" id="dateFrom" value="--><?//= date( "Y-m-01" ) ?><!--" placeholder="time">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="time">заканчивая:</label>-->
+<!--                        <input type="date" class="form-control" name="dateTo" id="dateTo" value="--><?//= date( "Y-m-d" ) ?><!--" placeholder="time">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <button type="submit" class="btn btn-primary btn-block">Показать историю</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--                <a href="/app?mexcod=--><?//= $_SESSION['mexcod'] ?><!--&action=startInfoKKM" class="btn btn-primary btn-block">Информация по ККМ</a>-->
+
+                <a href="/app?mexcod=<?= $_SESSION['mexcod'] ?>" class="btn btn-primary btn-block">Текущие заявки</a>
+
+                <br>
+<!--                Поиск договора по ИНН-->
                 <form method="GET" action="/app">
                     <input type="hidden" name="mexcod" value="<?= $_SESSION['mexcod'] ?>">
-                    <input type="hidden" name="action" value="showHistoryTicket">
+                    <input type="hidden" name="action" value="showInfoContract">
 
                     <div class="form-group">
-                        <label for="time">Начиная с:</label>
-                        <input type="date" class="form-control" name="dateFrom" id="dateFrom" value="<?= date( "Y-m-01" ) ?>" placeholder="time">
+                        <label for="time">Проверить договор по ИНН</label>
+                        <input type="number" class="form-control" name="inn" id="inn" value="" placeholder="INN">
                     </div>
                     <div class="form-group">
-                        <label for="time">заканчивая:</label>
-                        <input type="date" class="form-control" name="dateTo" id="dateTo" value="<?= date( "Y-m-d" ) ?>" placeholder="time">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Показать историю</button>
+                        <button type="submit" class="btn btn-primary btn-block">Проверить договор</button>
                     </div>
                 </form>
-                <a href="/app?mexcod=<?= $_SESSION['mexcod'] ?>" class="btn btn-primary btn-block">Текущие заявки</a>
-                <a href="/app?mexcod=<?= $_SESSION['mexcod'] ?>&action=startInfoKKM" class="btn btn-primary btn-block">Информация по ККМ</a>
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Вернуться</button>

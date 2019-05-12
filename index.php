@@ -29,6 +29,15 @@ if ('/' === $uri) {
     {
         $action = $_GET['action']; // Команда для выполнения
 
+        if ($action === 'showInfoContract')
+        {
+            if (!empty($_GET['inn']))
+            {
+                $main->showInfoContract($_GET['inn']);
+                return;
+            }
+        }
+
         //Показать историю заявок в диапазоне дат
         if ($action === 'showHistoryTicket')
         {
