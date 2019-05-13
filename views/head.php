@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru-ru" xml:lang="ru-ru" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,6 +17,6 @@
 </head>
 <body>
 <div class="container-fluid">
-<!--<div class=" col-">-->
-<!--    <br>-->
-<!--</div>-->
+    <!--<div class=" col-">-->
+    <!--    <br>-->
+    <!--</div>-->

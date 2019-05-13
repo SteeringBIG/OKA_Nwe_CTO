@@ -20,6 +20,7 @@
         $tic = $tickets[$n]; // Очередной тикет из массива
 	    $mexCod = $tic['mexcod']; // код механника. Нужен для модального окна
         $idTicket = $tic['idz']; // id заявки в базе на сайте
+        $nomerTicket = $tic['nomer']; // nomer заявки в базе 1С
         $status = $tic['prinal'];
         $problema = $tic['problema'];
 
