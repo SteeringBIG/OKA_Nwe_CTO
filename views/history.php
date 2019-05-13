@@ -36,5 +36,5 @@
         require 'modalTicket.php';
         $n++;
     }
-    require 'modalTitle.php'; //Модальное окно с кнопками для каждого тикета
+    require 'modalTitle.php'; //Модальное окно с основным меню
 ?>

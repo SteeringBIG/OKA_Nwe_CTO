@@ -1,5 +1,11 @@
 
 <div class="col-">
+    <div class="alert alert-success btn-block" data-toggle="modal" data-target="#modalTitle" role="alert">
+        <h4 class="text-uppercase text-center">Домашняя страница</h4>
+    </div>
+</div>
+
+<div class="col-">
     <div class="alert  alert-info text-center btn-block">
         <h3><a href=http://cd.oe22.ru/oka-files/AA_v3.zip>Ammyy Admin (v.3.7)</a> пароль к архиву = 0
         <br>
@@ -28,3 +34,6 @@
     </div>
 </div>
 
+<?php
+    require 'modalTitle.php'; //Модальное окно с основным меню
+?>
