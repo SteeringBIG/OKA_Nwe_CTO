@@ -7,17 +7,19 @@
 
 <?php
 
-    $searchString = $_GET['searchString'];
     $searchContractBy = $_GET['searchContractBy'];
+    $searchString = mb_convert_encoding($_GET['searchString'], "CP1251");
+    //echo $_GET['searchString'] . '<br>';
+
     $username = "web";
     $password = "";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL,'http://DC-01/oka_cto/hs/contract/' . $searchContractBy . '/' . $searchString);
-    //curl_setopt($ch, CURLOPT_URL,'http://vpn.oe22.ru:8000/oka_cto/hs/contract/' . $searchContractBy . '/' . $searchString);
+    //curl_setopt($ch, CURLOPT_URL,'http://DC-01/oka_cto/hs/contract/' . $searchContractBy . '/' . $searchString);
+    curl_setopt($ch, CURLOPT_URL,'http://vpn.oe22.ru:8000/oka_cto/hs/contract/' . $searchContractBy . '/' . $searchString);
     curl_setopt($ch, CURLOPT_USERPWD,$username . ":" . $password);
-
+    curl_setopt($ch, CURLOPT_ENCODING, "");
     $content = curl_exec($ch);
     //echo $content . "<br>";
 
@@ -34,7 +36,7 @@
                 break;
             case 'Строк':
                 echo "<div class=\"alert  alert-dark btn-block\">";
-                echo "<b>" . $value['Содержание'] . " </b>Сумма: " . $value['Сумма'] . " руб. <b>Адрес: " . $value['АдресИспользования'] . "</b> <i>" . $value['Ответственный'] . "</i>";
+                echo "<b>" . $value['Содержание'] . " (" . $value['СерийныйНомер'] . ") </b>Сумма: " . $value['Сумма'] . " руб. <b>Адрес: " . $value['АдресИспользования'] . "</b> <i>" . $value['Ответственный'] . "</i>";
                 echo "</div>";
                 break;
             case 'Ошибк':
