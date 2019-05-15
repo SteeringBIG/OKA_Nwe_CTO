@@ -52,9 +52,9 @@ if ('/' === $uri) {
 
         if ($action === 'showInfoContract')
         {
-            if (!empty($_GET['inn']))
+            if (!empty($_GET['searchString']))
             {
-                $main->showInfoContract($_GET['inn']);
+                $main->showInfoContract();
                 return;
             }
         }

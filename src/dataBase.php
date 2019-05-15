@@ -68,7 +68,7 @@ class dataBase
         $allowed = array("date_upd", "mex_code", "name_org", "inn", "kkm_model", "kkm_number",
             "kkm_sno", "kkm_firmware", "fn_size", "fn_protocol", "sub_firmware", "auto_upd_firmware", "groups_product"); // allowed fields
 
-        $sql = "INSERT INTO kkm_info SET ".$this->pdoSet($allowed,$values);
+        $sql = "INSERT INTO kkm_info SET ".$this->pdoSet($allowed, $values);
         $sth= $this->link->prepare($sql);
         //echo '$values = ' . var_dump($values);
         $result = $sth->execute($values);
